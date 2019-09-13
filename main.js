@@ -43,6 +43,29 @@
   // - 戻り値
   //   - 無し
 
+  const fetchQuizData = () => {
+    //Webページ上の表示をリセットする
+    questionConstainer.textContent = '「Now loading...」';
+    resultContainer.textContent = '';
+    restartButton.hidden = true;
+
+    //クイズ取得~取得後の流れ
+    fetch(API_URL)
+      .then(response => {
+        response.json();
+      })
+      .then(data => {
+        gameState.quizzes = data.results;
+        gameState.currentIndex = 0;
+        gameState.numberOfCorrects = 0;
+
+        setNextQuiz();
+      })
+    
+      }
+
+
+  }
 
   // setNextQuiz関数を実装する
   // - 実現したいこと
