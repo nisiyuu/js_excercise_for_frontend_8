@@ -28,12 +28,12 @@
   // ページの読み込みが完了したらクイズ情報を取得する
   window.addEventListener('load', (event) => {
     fetchQuizData();
-  })
+  });
 
   // 「Restart」ボタンをクリックしたら再度クイズデータを取得する
   restartButton.addEventListener('click', (event) => {
     fetchQuizData();
-  })
+  });
 
 
 
@@ -55,7 +55,11 @@
   // - 戻り値
   //   - 無し
 
-  
+  const fetchQuizData = () => {
+    //TODO: 後ほど中身を実装
+  };
+
+
 
 
   // setNextQuiz関数を実装する
