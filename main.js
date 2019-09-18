@@ -12,16 +12,28 @@
   // - 保持する情報
   //   - quizzes : fetchで取得したクイズデータの配列(resutls)を保持する
   //   - currentIndex : 現在何問目のクイズに取り組んでいるのかをインデックス番号で保持する
-  //   - numberOfCorrects : 正答数を保持するう
-
+  //   - numberOfCorrects : 正答数を保持する
+  const gameState = {
+    quizzes: [],
+    currentIndex: 0,
+    numberOfCorrects: 0,
+  };
 
   // HTMLのid値がセットされているDOMを取得する
-
+  const questionContainer = document.getElementById('question');
+  const answerContainer = document.getElementById('answers');
+  const resultConstainer = document.getElementById('result');
+  const restartButton = document.getElementById('restart-button');
 
   // ページの読み込みが完了したらクイズ情報を取得する
-
+  window.addEventListener('load', (event) => {
+    fetchQuizData();
+  });
 
   // 「Restart」ボタンをクリックしたら再度クイズデータを取得する
+  restartButton.addEventListener('click', (event) => {
+    fetchQuizData();
+  });
 
 
 
@@ -61,11 +73,8 @@
 
         setNextQuiz();
       })
-    
-      }
+  };
 
-
-  }
 
   // setNextQuiz関数を実装する
   // - 実現したいこと
