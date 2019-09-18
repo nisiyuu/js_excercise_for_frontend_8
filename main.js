@@ -75,6 +75,19 @@
   // - 戻り値
   //   - 無し
 
+  const setNextQuiz = () => {
+    questionContainer.textContent = '';
+    removeAllAnswer();
+
+    if (gameState.currentIndex <= 9) {
+      const quiz = gameState.quizzes
+      makeQuiz(quiz);
+    } else {
+      finishQuiz();
+    }
+    }
+  }
+
 
   // finishQuiz関数を実装する
   // - 実現したいこと
