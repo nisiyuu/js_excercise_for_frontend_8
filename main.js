@@ -22,7 +22,7 @@
   // HTMLのid値がセットされているDOMを取得する
   const questionContainer = document.getElementById('question');
   const answerContainer = document.getElementById('answers');
-  const resultConstainer = document.getElementById('result');
+  const resultContainer = document.getElementById('result');
   const restartButton = document.getElementById('restart-button');
 
   // ページの読み込みが完了したらクイズ情報を取得する
@@ -79,14 +79,13 @@
     questionContainer.textContent = '';
     removeAllAnswer();
 
-    if (gameState.currentIndex <= 9) {
-      const quiz = gameState.quizzes
+    if (gameState.currentIndex < 10) {
+      const quiz = gameState.quizzes[gameState.currentIndex];
       makeQuiz(quiz);
     } else {
       finishQuiz();
     }
-    }
-  }
+  };
 
 
   // finishQuiz関数を実装する
@@ -98,6 +97,10 @@
   // - 戻り値
   //   - 無し
 
+  const finishQuiz = () => {
+    resultContainer.textContent = gameState.numberOfCorrects + '/ 10 corrects';
+    restartButton.hidden = false;
+  };
 
   // removeAllAnswers関数を実装する
   // - 実現したいこと
@@ -106,6 +109,11 @@
   //   - 無し
   // - 戻り値
   //   - 無し
+  const removeAllAnswers = () => {
+    while (answerContainer.firstChild) {
+      answerContainer.removeChild(answerContainer.firstChild);
+    }
+  };
 
 
   // makeQuiz関数を実装する
