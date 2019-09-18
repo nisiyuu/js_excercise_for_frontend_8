@@ -22,7 +22,7 @@
   // HTMLのid値がセットされているDOMを取得する
   const questionContainer = document.getElementById('question');
   const answerContainer = document.getElementById('answers');
-  const resultConstainer = document.getElementById('result');
+  const resultContainer = document.getElementById('result');
   const restartButton = document.getElementById('restart-button');
 
   // ページの読み込みが完了したらクイズ情報を取得する
@@ -56,10 +56,24 @@
   //   - 無し
 
   const fetchQuizData = () => {
-    //TODO: 後ほど中身を実装
+    //Webページ上の表示をリセットする
+    questionContainer.textContent = '「Now loading...」';
+    resultContainer.textContent = '';
+    restartButton.hidden = true;
+
+    //クイズ取得~取得後の流れ
+    fetch(API_URL)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        gameState.quizzes = data.results;
+        gameState.currentIndex = 0;
+        gameState.numberOfCorrects = 0;
+        
+        setNextQuiz();
+      });
   };
-
-
 
 
   // setNextQuiz関数を実装する
@@ -74,6 +88,10 @@
   //   - 無し
   // - 戻り値
   //   - 無し
+
+  const setNextQuiz= () => {
+    //todo
+  };
 
 
   // finishQuiz関数を実装する
