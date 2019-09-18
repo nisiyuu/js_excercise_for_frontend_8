@@ -56,10 +56,24 @@
   //   - 無し
 
   const fetchQuizData = () => {
-    //TODO: 後ほど中身を実装
+    //Webページ上の表示をリセットする
+    questionContainer.textContent = '「Now loading...」';
+    resultContainer.textContent = '';
+    restartButton.hidden = true;
+
+    //クイズ取得~取得後の流れ
+    fetch(API_URL)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        gameState.quizzes = data.results;
+        gameState.currentIndex = 0;
+        gameState.numberOfCorrects = 0;
+        
+        setNextQuiz();
+      });
   };
-
-
 
 
   // setNextQuiz関数を実装する
