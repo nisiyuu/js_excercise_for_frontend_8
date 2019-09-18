@@ -72,7 +72,7 @@
         gameState.numberOfCorrects = 0;
         
         setNextQuiz();
-      })
+      });
   };
 
 
