@@ -20,7 +20,7 @@
   };
 
   // HTMLのid値がセットされているDOMを取得する
-  const questionContainer = document.getElementById('question');
+        const questionContainer = document.getElementById('question');
   const answerContainer = document.getElementById('answers');
   const resultContainer = document.getElementById('result');
   const restartButton = document.getElementById('restart-button');
@@ -143,19 +143,18 @@
   //   - 無し
 
   const makeQuiz = quiz => {
-    //問題表示
-    questionContainer.textContent = quiz.question;
+    questionContainer.textContent = unescapeHTML(quiz.question);
 
     //回答表示
     const answers = buildAnswers(quiz);
     answers.forEach(answerData => {
       const answerItem = document.createElement('li');
-      answerItem.textContent = answerData;
+      answerItem.textContent = unescapeHTML(answerData);
       answerContainer.appendChild(answerItem);
 
       //解答選択
       answerItem.addEventListener('click', event => {
-        if (event.target.textContent === quiz.correct_answer) {
+        if (event.target.textContent === unescapeHTML(quiz.correct_answer)) {
           gameState.numberOfCorrects++;
           alert('Correct answer!!');
         } else {
@@ -175,11 +174,11 @@
   // 正解・不正解の解答をシャッフルする。
 
   const buildAnswers = quiz => {
-    const answer = [
+    const answers = [
       quiz.correct_answer,
       ...quiz.incorrect_answers //...がないと[0, [1, 2, 3]]のように入れ子になってしまう
     ];
-    return shuffle(answer);
+    return shuffle(answers);
   };
 
   // `shuffle関数` を実装する
@@ -193,8 +192,21 @@
   // - 戻り値
   //   - shffuledArray : シャッフル後の配列(引数の配列とは別の配列であることに注意する)
 
-  const shuffle = array => {
-    return array;
+  const shuffle = quiz => {
+    const copiedArray = quiz.slice(); 
+    for (let i = copiedArray.length - 1; i >= 0; i--){
+
+      // 0~iのランダムな数値を取得
+      var rand = Math.floor( Math.random() * ( i + 1 ) );
+    
+      // 配列の数値を入れ替える
+      var tmp = quiz[i];
+      quiz[i] = quiz[rand];
+      quiz[rand] = tmp;
+    
+    }
+
+    return copiedArray;
   };
 
   // unescapeHTML関数を実装する
@@ -208,6 +220,12 @@
   //   - 文字列
 
   const unescapeHTML = str => {
-    //todo
+    var div = document.createElement("div");
+    div.innerHTML = str.replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/ /g, "&nbsp;")
+      .replace(/\r/g, "&#13;")
+      .replace(/\n/g, "&#10;");
+    return div.textContent || div.innerText;
   };
 })();
