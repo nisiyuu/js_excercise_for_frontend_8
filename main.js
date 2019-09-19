@@ -16,7 +16,7 @@
   const gameState = {
     quizzes: [],
     currentIndex: 0,
-    numberOfCorrects: 0,
+    numberOfCorrects: 0
   };
 
   // HTMLのid値がセットされているDOMを取得する
@@ -26,16 +26,14 @@
   const restartButton = document.getElementById('restart-button');
 
   // ページの読み込みが完了したらクイズ情報を取得する
-  window.addEventListener('load', (event) => {
+  window.addEventListener('load', event => {
     fetchQuizData();
   });
 
   // 「Restart」ボタンをクリックしたら再度クイズデータを取得する
-  restartButton.addEventListener('click', (event) => {
+  restartButton.addEventListener('click', event => {
     fetchQuizData();
   });
-
-
 
   // `fetchQuizData関数`を実装する
   // - 実現したいこと
@@ -70,11 +68,10 @@
         gameState.quizzes = data.results;
         gameState.currentIndex = 0;
         gameState.numberOfCorrects = 0;
-        
+
         setNextQuiz();
       });
   };
-
 
   // setNextQuiz関数を実装する
   // - 実現したいこと
@@ -91,16 +88,15 @@
 
   const setNextQuiz = () => {
     questionContainer.textContent = '';
-    removeAllAnswer();
+    removeAllAnswers();
 
-    if (gameState.currentIndex < 10) {
+    if (gameState.currentIndex < gameState.quizzes.length) {
       const quiz = gameState.quizzes[gameState.currentIndex];
       makeQuiz(quiz);
     } else {
       finishQuiz();
     }
   };
-
 
   // finishQuiz関数を実装する
   // - 実現したいこと
@@ -112,7 +108,8 @@
   //   - 無し
 
   const finishQuiz = () => {
-    resultContainer.textContent = gameState.numberOfCorrects + '/ 10 corrects';
+    resultContainer.textContent =
+      gameState.numberOfCorrects + '/' + gameState.quizzes.length + 'corrects';
     restartButton.hidden = false;
   };
 
@@ -128,7 +125,6 @@
       answerContainer.removeChild(answerContainer.firstChild);
     }
   };
-
 
   // makeQuiz関数を実装する
   // - 実現したいこと
@@ -146,10 +142,12 @@
   // - 戻り値無し
   //   - 無し
 
+  const makeQuiz = () => {
+    //TODO
+  };
 
   // quizオブジェクトの中にあるcorrect_answer, incorrect_answersを結合して
   // 正解・不正解の解答をシャッフルする。
-
 
   // `shuffle関数` を実装する
   // - 実現したいこと
@@ -162,8 +160,6 @@
   // - 戻り値
   //   - shffuledArray : シャッフル後の配列(引数の配列とは別の配列であることに注意する)
 
-
-
   // unescapeHTML関数を実装する
   // - 実現したいこと
   //   - &やクオーテーションマークなどが特殊文字としてセットされているので、
@@ -173,5 +169,4 @@
   //   - 文字列
   // - 戻り値
   //   - 文字列
-
 })();
