@@ -20,7 +20,7 @@
   };
 
   // HTMLのid値がセットされているDOMを取得する
-        const questionContainer = document.getElementById('question');
+  const questionContainer = document.getElementById('question');
   const answerContainer = document.getElementById('answers');
   const resultContainer = document.getElementById('result');
   const restartButton = document.getElementById('restart-button');
@@ -193,17 +193,15 @@
   //   - shffuledArray : シャッフル後の配列(引数の配列とは別の配列であることに注意する)
 
   const shuffle = quiz => {
-    const copiedArray = quiz.slice(); 
-    for (let i = copiedArray.length - 1; i >= 0; i--){
-
+    const copiedArray = quiz.slice();
+    for (let i = copiedArray.length - 1; i >= 0; i--) {
       // 0~iのランダムな数値を取得
-      var rand = Math.floor( Math.random() * ( i + 1 ) );
-    
+      var rand = Math.floor(Math.random() * (i + 1));
+
       // 配列の数値を入れ替える
       var tmp = quiz[i];
       quiz[i] = quiz[rand];
       quiz[rand] = tmp;
-    
     }
 
     return copiedArray;
@@ -220,12 +218,13 @@
   //   - 文字列
 
   const unescapeHTML = str => {
-    var div = document.createElement("div");
-    div.innerHTML = str.replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/ /g, "&nbsp;")
-      .replace(/\r/g, "&#13;")
-      .replace(/\n/g, "&#10;");
+    var div = document.createElement('div');
+    div.innerHTML = str
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/ /g, '&nbsp;')
+      .replace(/\r/g, '&#13;')
+      .replace(/\n/g, '&#10;');
     return div.textContent || div.innerText;
   };
 })();
