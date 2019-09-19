@@ -142,12 +142,42 @@
   // - 戻り値無し
   //   - 無し
 
-  const makeQuiz = () => {
-    //TODO
+  const makeQuiz = (quiz) => {
+
+    //問題表示
+    questionContainer.textContent = quiz.question;
+
+    //回答表示
+    const answers = buildAnswers(quiz);
+    answers.forEach(answerdata => {
+      const answerItem = document.createElement('li');
+      answerItem.textContent = answerdata;
+      answerContainer.appendChild(answerItem);
+
+    //解答選択
+    answerItem.addEventListener('click', (event) => {
+      if (event.target.textContent === quiz.correct_answer) {
+        gameState.numberOfCorrects++;
+        alert('Correct answer!!');
+      } else {
+        alert('「Wrong answer...The correct answer is' + quiz.correct_answer + '」');
+      }
+      gameState.currentIndex++;
+        setNextQuiz();
+    })
+  });
   };
 
   // quizオブジェクトの中にあるcorrect_answer, incorrect_answersを結合して
   // 正解・不正解の解答をシャッフルする。
+
+  const buildAnswers = (quiz) => {
+    const answer = [
+      quiz.correct_answer,
+      ...quiz.incorrect_answers//...がないと[0, [1, 2, 3]]のように入れ子になってしまう
+    ]
+    return shuffle(answer);
+  };
 
   // `shuffle関数` を実装する
   // - 実現したいこと
@@ -160,6 +190,12 @@
   // - 戻り値
   //   - shffuledArray : シャッフル後の配列(引数の配列とは別の配列であることに注意する)
 
+  const shuffle = (array) => {
+    return array;
+  };
+
+
+
   // unescapeHTML関数を実装する
   // - 実現したいこと
   //   - &やクオーテーションマークなどが特殊文字としてセットされているので、
@@ -169,4 +205,8 @@
   //   - 文字列
   // - 戻り値
   //   - 文字列
+
+  const unescapeHTML = (str) => {
+    //todo
+  };
 })();
