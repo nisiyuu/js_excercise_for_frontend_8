@@ -1,0 +1,25 @@
+{
+  "name": "js_excercise_for_frontend_8",
+  "version": "1.0.0",
+  "description": "prettierインストールのため入れた",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nisiyuu/js_excercise_for_frontend_8.git"
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nisiyuu/js_excercise_for_frontend_8/issues"
+  },
+  "homepage": "https://github.com/nisiyuu/js_excercise_for_frontend_8#readme",
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
+}
