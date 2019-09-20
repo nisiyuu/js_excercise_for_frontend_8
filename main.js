@@ -16,7 +16,7 @@
   const gameState = {
     quizzes: [],
     currentIndex: 0,
-    numberOfCorrects: 0
+    numberOfCorrects: 0,
   };
 
   // HTMLのid値がセットされているDOMを取得する
@@ -26,12 +26,12 @@
   const restartButton = document.getElementById('restart-button');
 
   // ページの読み込みが完了したらクイズ情報を取得する
-  window.addEventListener('load', event => {
+  window.addEventListener('load', () => {
     fetchQuizData();
   });
 
   // 「Restart」ボタンをクリックしたら再度クイズデータを取得する
-  restartButton.addEventListener('click', event => {
+  restartButton.addEventListener('click', () => {
     fetchQuizData();
   });
 
@@ -176,7 +176,7 @@
   const buildAnswers = quiz => {
     const answers = [
       quiz.correct_answer,
-      ...quiz.incorrect_answers //...がないと[0, [1, 2, 3]]のように入れ子になってしまう
+      ...quiz.incorrect_answers, //...がないと[0, [1, 2, 3]]のように入れ子になってしまう
     ];
     return shuffle(answers);
   };
