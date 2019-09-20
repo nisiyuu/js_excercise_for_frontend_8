@@ -1,11 +1,14 @@
 {
   "name": "js_excercise_for_frontend_8",
   "version": "1.0.0",
-  "description": "prettierインストールのため入れた",
-  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "precise-commits"
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -21,6 +24,11 @@
   },
   "homepage": "https://github.com/nisiyuu/js_excercise_for_frontend_8#readme",
   "devDependencies": {
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.2.5",
     "prettier": "^1.18.2"
   }
 }
