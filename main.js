@@ -196,10 +196,10 @@
     const copiedArray = quiz.slice();
     for (let i = copiedArray.length - 1; i >= 0; i--) {
       // 0~iのランダムな数値を取得
-      var rand = Math.floor(Math.random() * (i + 1));
+      const rand = Math.floor(Math.random() * (i + 1));
 
       // 配列の数値を入れ替える
-      var tmp = quiz[i];
+      const tmp = quiz[i];
       quiz[i] = quiz[rand];
       quiz[rand] = tmp;
     }
@@ -218,7 +218,7 @@
   //   - 文字列
 
   const unescapeHTML = str => {
-    var div = document.createElement('div');
+    const div = document.createElement('div');
     div.innerHTML = str
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
