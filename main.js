@@ -16,7 +16,7 @@
   const gameState = {
     quizzes: [],
     currentIndex: 0,
-    numberOfCorrects: 0
+    numberOfCorrects: 0,
   };
 
   // HTMLのid値がセットされているDOMを取得する
@@ -26,12 +26,12 @@
   const restartButton = document.getElementById('restart-button');
 
   // ページの読み込みが完了したらクイズ情報を取得する
-  window.addEventListener('load', event => {
+  window.addEventListener('load', () => {
     fetchQuizData();
   });
 
   // 「Restart」ボタンをクリックしたら再度クイズデータを取得する
-  restartButton.addEventListener('click', event => {
+  restartButton.addEventListener('click', () => {
     fetchQuizData();
   });
 
@@ -142,12 +142,44 @@
   // - 戻り値無し
   //   - 無し
 
-  const makeQuiz = () => {
-    //TODO
+  const makeQuiz = quiz => {
+    questionContainer.textContent = unescapeHTML(quiz.question);
+
+    //回答表示
+    const answers = buildAnswers(quiz);
+    answers.forEach(answerData => {
+      const answerItem = document.createElement('li');
+      answerItem.textContent = unescapeHTML(answerData);
+      answerContainer.appendChild(answerItem);
+
+      //解答選択
+      answerItem.addEventListener('click', event => {
+        if (event.target.textContent === unescapeHTML(quiz.correct_answer)) {
+          gameState.numberOfCorrects++;
+          alert('Correct answer!!');
+        } else {
+          alert(
+            '「Wrong answer...The correct answer is ' +
+              quiz.correct_answer +
+              '」'
+          );
+        }
+        gameState.currentIndex++;
+        setNextQuiz();
+      });
+    });
   };
 
   // quizオブジェクトの中にあるcorrect_answer, incorrect_answersを結合して
   // 正解・不正解の解答をシャッフルする。
+
+  const buildAnswers = quiz => {
+    const answers = [
+      quiz.correct_answer,
+      ...quiz.incorrect_answers, //...がないと[0, [1, 2, 3]]のように入れ子になってしまう
+    ];
+    return shuffle(answers);
+  };
 
   // `shuffle関数` を実装する
   // - 実現したいこと
@@ -160,6 +192,21 @@
   // - 戻り値
   //   - shffuledArray : シャッフル後の配列(引数の配列とは別の配列であることに注意する)
 
+  const shuffle = quiz => {
+    const copiedArray = quiz.slice();
+    for (let i = copiedArray.length - 1; i >= 0; i--) {
+      // 0~iのランダムな数値を取得
+      const rand = Math.floor(Math.random() * (i + 1));
+
+      // 配列の数値を入れ替える
+      const tmp = quiz[i];
+      quiz[i] = quiz[rand];
+      quiz[rand] = tmp;
+    }
+
+    return copiedArray;
+  };
+
   // unescapeHTML関数を実装する
   // - 実現したいこと
   //   - &やクオーテーションマークなどが特殊文字としてセットされているので、
@@ -169,4 +216,15 @@
   //   - 文字列
   // - 戻り値
   //   - 文字列
+
+  const unescapeHTML = str => {
+    const div = document.createElement('div');
+    div.innerHTML = str
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/ /g, '&nbsp;')
+      .replace(/\r/g, '&#13;')
+      .replace(/\n/g, '&#10;');
+    return div.textContent || div.innerText;
+  };
 })();
